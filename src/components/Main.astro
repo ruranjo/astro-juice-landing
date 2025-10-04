@@ -1,0 +1,452 @@
+---
+// Componente: src/components/Header.astro
+import { Menu, X, Star, Zap, Droplets, Sparkles, Phone, Mail, Facebook, Instagram, Twitter, ShoppingCart } from '@lucide/astro';
+// Variables reactivas (se convierten en variables estáticas o se manejan con scripts)
+const whatsappNumber = "1234567890";
+const whatsappMessage = encodeURIComponent("Hola! Me interesa conocer más sobre la licuadora de jugos.");
+
+// Script para manejar la interactividad
+const script = `
+  function openWhatsApp() {
+    window.open(\`https://wa.me/${whatsappNumber}?text=${whatsappMessage}\`, '_blank');
+  }
+
+  // Manejo del menú móvil
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuButton = document.querySelector('[data-menu-button]');
+    const mobileMenu = document.querySelector('[data-mobile-menu]');
+    
+    if (menuButton && mobileMenu) {
+      menuButton.addEventListener('click', function() {
+        const isOpen = mobileMenu.classList.contains('hidden');
+        if (isOpen) {
+          mobileMenu.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    }
+
+    // Cerrar menú al hacer clic en enlaces
+    const mobileLinks = document.querySelectorAll('[data-mobile-link]');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  });
+`;
+---
+
+  
+  <div class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center gap-2">
+            <Sparkles class="w-8 h-8 text-green-500" />
+            <span class="text-2xl font-bold bg-gradient-to-r from-green-600 to-orange-500 bg-clip-text text-transparent">
+              FreshJuice Pro
+            </span>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden md:flex items-center gap-8">
+            <a href="#beneficios" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+              Beneficios
+            </a>
+            <a href="#testimonios" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+              Testimonios
+            </a>
+            <a href="#contacto" class="text-gray-700 hover:text-green-600 transition-colors font-medium">
+              Contacto
+            </a>
+            <button
+              onclick="openWhatsApp()"
+              class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all font-semibold"
+            >
+              Comprar Ahora
+            </button>
+          </nav>
+
+          <!-- Mobile Menu Button -->
+          <button
+            class="md:hidden p-2"
+            data-menu-button
+          >
+            <Menu class="w-6 h-6" data-menu-icon />
+            <X class="w-6 h-6 hidden" data-close-icon />
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden bg-white border-t hidden" data-mobile-menu>
+        <nav class="flex flex-col px-4 py-4 gap-4">
+          <a
+            href="#beneficios"
+            class="text-gray-700 hover:text-green-600 transition-colors font-medium"
+            data-mobile-link
+          >
+            Beneficios
+          </a>
+          <a
+            href="#testimonios"
+            class="text-gray-700 hover:text-green-600 transition-colors font-medium"
+            data-mobile-link
+          >
+            Testimonios
+          </a>
+          <a
+            href="#contacto"
+            class="text-gray-700 hover:text-green-600 transition-colors font-medium"
+            data-mobile-link
+          >
+            Contacto
+          </a>
+          <button
+            onclick="openWhatsApp()"
+            class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2.5 rounded-full hover:shadow-lg transition-all font-semibold"
+          >
+            Comprar Ahora
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 via-orange-50 to-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-8">
+            <div class="inline-block">
+              <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
+                ¡Nuevo Lanzamiento!
+              </span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+              Tu Dosis Diaria de{' '}
+              <span class="bg-gradient-to-r from-green-600 to-orange-500 bg-clip-text text-transparent">
+                Salud y Energía
+              </span>
+            </h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+              Descubre la licuadora más potente y eficiente del mercado. Jugos frescos y nutritivos en segundos.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button
+                onclick="openWhatsApp()"
+                class="group bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full hover:shadow-2xl hover:scale-105 transition-all font-bold text-lg flex items-center justify-center gap-2"
+              >
+                <ShoppingCart class="w-5 h-5" />
+                Comprar Ahora
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+              <button
+                onclick="openWhatsApp()"
+                class="bg-white border-2 border-green-500 text-green-600 px-8 py-4 rounded-full hover:bg-green-50 transition-all font-bold text-lg"
+              >
+                Consultar por WhatsApp
+              </button>
+            </div>
+            <div class="flex items-center gap-8 pt-4">
+              <div class="flex items-center gap-2">
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+              </div>
+              <p class="text-gray-600 font-medium">
+                <span class="text-green-600 font-bold">4.9/5</span> - Más de 2,000 clientes felices
+              </p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-orange-400 rounded-full blur-3xl opacity-20"></div>
+            <div class="relative bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition-transform duration-500">
+              <div class="aspect-square bg-gradient-to-br from-green-100 to-orange-100 rounded-2xl flex items-center justify-center">
+                <div class="text-center">
+                  <!-- Imagen mejorada: rectangular y grande -->
+                  <div class="w-full max-w-md mx-auto shadow-xl overflow-hidden rounded-2xl">
+                    <img 
+                      src="/licuadora.jpg" 
+                      alt="Licuadora FreshJuice Pro"
+                      class="w-full h-auto object-contain"
+                    />
+                  </div>
+                  <p class="mt-6 text-gray-500 text-sm">Imagen de producto premium</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+            ¿Por Qué Elegir{' '}
+            <span class="bg-gradient-to-r from-green-600 to-orange-500 bg-clip-text text-transparent">
+              FreshJuice Pro?
+            </span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Tecnología de punta diseñada para transformar tu rutina de salud
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 hover:shadow-xl transition-all group">
+            <div class="bg-green-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Zap class="w-8 h-8 text-green-600" />
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Súper Potente</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Motor de 1500W que tritura cualquier ingrediente en segundos. Licúa frutas, verduras e incluso hielo sin esfuerzo.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 hover:shadow-xl transition-all group">
+            <div class="bg-orange-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Droplets class="w-8 h-8 text-orange-600" />
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Limpieza Fácil</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Sistema de auto-limpieza en 30 segundos. Piezas desmontables aptas para lavavajillas. Más tiempo para disfrutar, menos para limpiar.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 hover:shadow-xl transition-all group">
+            <div class="bg-green-100 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Sparkles class="w-8 h-8 text-green-600" />
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Resultados Perfectos</h3>
+            <p class="text-gray-600 leading-relaxed">
+              6 cuchillas de acero inoxidable para texturas ultra-suaves. Conserva todos los nutrientes y vitaminas de tus ingredientes.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12 text-center">
+          <button
+            onclick="openWhatsApp()"
+            class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-4 rounded-full hover:shadow-2xl hover:scale-105 transition-all font-bold text-lg inline-flex items-center gap-2"
+          >
+            <ShoppingCart class="w-5 h-5" />
+            Obtén la Tuya Hoy
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-orange-50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl sm:text-5xl font-bold mb-4">
+            Lo Que Dicen{' '}
+            <span class="bg-gradient-to-r from-green-600 to-orange-500 bg-clip-text text-transparent">
+              Nuestros Clientes
+            </span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Miles de personas ya transformaron su estilo de vida
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all">
+            <div class="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star class="w-5 h-5 fill-orange-400 text-orange-400" />
+              ))}
+            </div>
+            <p class="text-gray-700 mb-6 leading-relaxed italic">
+              "La mejor inversión para mi salud. Ahora preparo jugos frescos todos los días en menos de 2 minutos. ¡Increíble!"
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                M
+              </div>
+              <div>
+                <p class="font-bold text-gray-800">María González</p>
+                <p class="text-sm text-gray-500">Nutricionista</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all">
+            <div class="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star  class="w-5 h-5 fill-orange-400 text-orange-400" />
+              ))}
+            </div>
+            <p class="text-gray-700 mb-6 leading-relaxed italic">
+              "Potente, silenciosa y muy fácil de limpiar. Mi familia ahora disfruta de batidos saludables cada mañana."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                J
+              </div>
+              <div>
+                <p class="font-bold text-gray-800">Juan Pérez</p>
+                <p class="text-sm text-gray-500">Deportista</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all">
+            <div class="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star  class="w-5 h-5 fill-orange-400 text-orange-400" />
+              ))}
+            </div>
+            <p class="text-gray-700 mb-6 leading-relaxed italic">
+              "Calidad excepcional. Licúa hasta hielo sin problemas. El envío fue súper rápido. ¡100% recomendada!"
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                A
+              </div>
+              <div>
+                <p class="font-bold text-gray-800">Ana Martínez</p>
+                <p class="text-sm text-gray-500">Chef</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-6">
+          ¿Listo Para{' '}
+          <span class="bg-gradient-to-r from-green-600 to-orange-500 bg-clip-text text-transparent">
+            Empezar?
+          </span>
+        </h2>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Compra hoy y recibe envío gratis. Garantía de satisfacción 100% o te devolvemos tu dinero.
+        </p>
+        <div class="bg-gradient-to-br from-green-50 to-orange-50 rounded-3xl p-8 sm:p-12 shadow-xl">
+          <div class="space-y-6">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onclick="openWhatsApp()"
+                class="group bg-gradient-to-r from-green-500 to-green-600 text-white px-10 py-5 rounded-full hover:shadow-2xl hover:scale-105 transition-all font-bold text-xl flex items-center justify-center gap-3"
+              >
+                <Phone class="w-6 h-6" />
+                Consultar por WhatsApp
+                <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </div>
+            <p class="text-gray-600 font-medium">
+              Respuesta inmediata • Asesoría personalizada • Promociones exclusivas
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <Sparkles class="w-8 h-8 text-green-500" />
+              <span class="text-2xl font-bold">FreshJuice Pro</span>
+            </div>
+            <p class="text-gray-400">
+              Tu aliado perfecto para una vida más saludable y llena de energía.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-4">Contacto</h3>
+            <div class="space-y-3">
+              <a href="tel:+1234567890" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <Phone class="w-4 h-4" />
+                +1 (234) 567-890
+              </a>
+              <a href="mailto:info@freshjuice.com" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <Mail class="w-4 h-4" />
+                info@freshjuice.com
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-4">Enlaces</h3>
+            <div class="space-y-3">
+              <a href="#beneficios" class="block text-gray-400 hover:text-white transition-colors">
+                Beneficios
+              </a>
+              <a href="#testimonios" class="block text-gray-400 hover:text-white transition-colors">
+                Testimonios
+              </a>
+              <a href="#contacto" class="block text-gray-400 hover:text-white transition-colors">
+                Contacto
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-4">Síguenos</h3>
+            <div class="flex gap-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-gray-800 p-3 rounded-full hover:bg-green-500 transition-colors"
+              >
+                <Facebook class="w-5 h-5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-gray-800 p-3 rounded-full hover:bg-green-500 transition-colors"
+              >
+                <Instagram class="w-5 h-5" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-gray-800 p-3 rounded-full hover:bg-green-500 transition-colors"
+              >
+                <Twitter class="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>© 2025 FreshJuice Pro. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <button
+      onclick="openWhatsApp()"
+      class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50 group"
+      aria-label="Contactar por WhatsApp"
+    >
+      <Phone class="w-6 h-6" />
+      <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">
+        Chat
+      </span>
+    </button>
+  </div>
